@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 import Header from '../../component/Header';
 import Menu from '../../component/Menu'
-import './style.css';
+import './style.scss';
 
 const App = () => (
   <div className="body">
