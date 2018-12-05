@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 // import { Link } from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
 import Header from '../../component/Header';
-import Menu from '../../component/Menu'
+import HomePage from '../../container/HomePage'
 import './style.scss';
 
 const App = () => (
@@ -15,10 +15,9 @@ const App = () => (
       <meta name="description" content="Medium" />
     </Helmet>
     <Header />
-    <Menu />
     <Switch>
-      {/* <Route exact path='/' component={Home} />
-      <Route path='/About' component={About} /> */}
+      <Route exact path='/' component={HomePage} />
+      {/* <Route path='/About' component={About} /> */}
     </Switch>
   </div>
 );
