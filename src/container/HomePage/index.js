@@ -16,6 +16,8 @@ class HomePage extends React.Component {
             </div>
             <div className="col-12 col-sm-6 col-md-4 middle">
               <MCard position="left" />
+              <MCard position="left" />
+              <MCard position="left" />
             </div>
             <div className="col-12 col-sm-6 col-md-4 right">
               <LRCard position="right" />

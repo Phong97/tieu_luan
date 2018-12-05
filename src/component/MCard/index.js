@@ -11,7 +11,7 @@ class MCard extends React.Component {
       <div className="middle-card">
         <div className="row">
           <div className={position}>
-            <a><img src="http://placehold.it/100x100" alt="" /></a>
+            <a><img src="http://placehold.it/100x125" alt="" /></a>
           </div>
           <div className="col-md-8">
             <div className="title-post">

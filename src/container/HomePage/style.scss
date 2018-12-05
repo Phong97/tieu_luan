@@ -1,5 +1,5 @@
 .NewFeature {
-  padding-top: 12px; 
+  padding-top: 24px; 
   .content-card {
     position: relative;
     display: flex;
@@ -25,14 +25,8 @@
     font-weight: 400!important;
     font-size: 12px;
   }
-  .post-summary-middle {
-    width: 190px;
-    overflow: hidden!important;
-    text-overflow: ellipsis!important;
-    white-space: nowrap!important;
-  }
   .caption {
-    margin-top: 12px!important;
+    margin-top: 12px;
     font-size: 12px;
   }
   .post-left {
@@ -40,24 +34,6 @@
   }
   .post-right {
     width: 224px;
-  }
-  .flex-order-2 {
-    order: 2;
-  }
-  .middle-card {
-    .content-post {
-      padding-top: 8px;
-      line-height: 20px;
-      .title-post {
-        max-height: 135px;
-      }
-    }
-    h3 {
-      font-size: 18px;
-    }
-    .row {
-      display: flex;
-    }
   }
   a.decoration:hover {
     text-decoration: underline;
