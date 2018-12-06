@@ -17,7 +17,17 @@ body {
   .font-weight-400 {
     font-weight: 400!important;
   }
+  .divider {
+    margin: 24px auto;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
   a:hover {
     cursor: pointer;
+  }
+  .ellipsis {
+    width: 100%;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    white-space: nowrap!important;
   }
 }

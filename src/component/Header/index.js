@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss';
 
 const Header = () => (
-  <div className="container">
+  <div className="Header container">
     <nav className="navbar navbar-light justify-content-between ">
       <a className="navbar-brand"><h2>Medium</h2></a>
       <div>
