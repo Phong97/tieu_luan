@@ -62,7 +62,6 @@ class Menu extends React.Component {
     this.setState({ selected: key });
   }
 
-
   render() {
     const { selected } = this.state;
     const menu = MenuItems(list, selected);

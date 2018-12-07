@@ -69,28 +69,26 @@
     font-size: inherit;
   }
   .SeveralFeature {
-    h3 {
+    .h3-feature {
       margin-top: 24px;
       font-size: 24px;
-
     }
     .second {
       h3 {
-        margin-top: 80px;
+        margin-top: 76px;
+        font-size: 18px;
       }
     }
     .header-feature {
       margin-top: 12px;
       width: 100%;
-      display: inline-block;
-      .left {
-        width: 85%;
-        float: left;
+      display: flex;
+      .left-more {
+        width: 80%;
       }
-      .right {
+      .right-more {
         margin-top: 24px;
-        width: 15%;
-        float: right;
+        width: 20%;
         text-align: right;
       }
     }

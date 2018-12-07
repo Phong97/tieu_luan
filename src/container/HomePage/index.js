@@ -6,6 +6,10 @@ import MCard from '../../component/MCard';
 import Popular from '../../component/Popular';
 
 class HomePage extends React.Component {
+  state = {
+    openLogin: false,
+    openSignup: false
+  }
   render() {
     return (
       <div className="HomePage container">
@@ -30,46 +34,42 @@ class HomePage extends React.Component {
         <div className="SeveralFeature container">
           <div className="row">
             <div className="col-md-12 col-lg-8 first">
-              <div className="header-feature">
-                <a className="left"><h3 className="font-weight-600 ellipsis">Featured for members</h3></a>
-                <a className="right font-weight-400">MORE ></a>
+              <div>
+                <div className="header-feature">
+                  <a className="left-more"><h3 className="h3-feature font-weight-600 ellipsis">Featured for members</h3></a>
+                  <a className="right-more font-weight-400">MORE ></a>
+                </div>
+                <hr className="divider" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
               </div>
-              <hr className="divider" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <div className="header-feature">
-                <a className="left"><h3 className="font-weight-600 ellipsis">Featured for members</h3></a>
-                <a className="right font-weight-400">MORE ></a>
+              <div>
+                <div className="header-feature">
+                  <a className="left-more"><h3 className="h3-feature font-weight-600 ellipsis">Featured for members</h3></a>
+                  <a className="right-more font-weight-400">MORE ></a>
+                </div>
+                <hr className="divider" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
               </div>
-              <hr className="divider" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <div className="header-feature">
-                <a className="left"><h3 className="font-weight-600 ellipsis">Featured for members</h3></a>
-                <a className="right font-weight-400">MORE ></a>
+              <div>
+                <div className="header-feature">
+                  <a className="left-more"><h3 className="h3-feature font-weight-600 ellipsis">Featured for members</h3></a>
+                  <a className="right-more font-weight-400">MORE ></a>
+                </div>
+                <hr className="divider" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
+                <MCard position="right" />
               </div>
-              <hr className="divider" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <div className="header-feature">
-                <a className="left"><h3 className="font-weight-600 ellipsis">Featured for members</h3></a>
-                <a className="right font-weight-400">MORE ></a>
-              </div>
-              <hr className="divider" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
-              <MCard position="right" />
             </div>
             <div className="col-md-12 col-lg-4 second">
               <div><a><h3 className="font-weight-600 ellipsis">Popular on Medium</h3></a></div>
