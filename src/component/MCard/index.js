@@ -11,11 +11,11 @@ class MCard extends React.Component {
       <div className="middle-card">
         <div className="row">
           <div className={position}>
-            <a><img src="http://placehold.it/100x100" alt="" /></a>
+            <a href="/Post/id"><img src="http://placehold.it/100x100" alt="" /></a>
           </div>
           <div className="col-8">
             <div className="title-post">
-              <a><h3 className="post post-name post-name-weight ellipsis">Post Name</h3></a>
+              <a href="/Post/id"><h3 className="post post-name post-name-weight ellipsis">Post Name</h3></a>
               <div className="post post-summary ellipsis post-summary-weight">Post summary Post summary Post summary Post summary Post summary Post summary</div>
             </div>
             <div className="caption">
