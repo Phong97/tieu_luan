@@ -1,0 +1,51 @@
+.UserPage {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  .profile {
+    margin-top: 64px;
+    display: block;
+    width: 60%;
+  }
+  .profile .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    float: right;
+  }
+  .profile .username{
+    font-size: 36px;
+  }
+  .button {
+    margin-left: 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: black;
+    display: inline-block;
+    padding: 2px 8px;
+  }
+  .follow {
+    font-size: 12px;
+  }
+  .follow a{
+    margin: 8px;
+  }
+  .post {
+    margin-top: 64px;
+    .header-feature {
+      margin-top: 12px;
+      width: 100%;
+      display: flex;
+      .left-more {
+        width: 80%;
+      }
+      .right-more {
+        width: 20%;
+        text-align: right;
+      }
+    }
+  }
+  .middle-card .post{
+    margin-top: 0px;
+  }
+}

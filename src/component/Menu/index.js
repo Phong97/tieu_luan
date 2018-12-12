@@ -22,7 +22,7 @@ const MenuItem = ({ text, selected }) => {
     <div
       className="menu-item"
     >
-      {text}
+      <a href="/catogory">{text}</a>
     </div>
   );
 };

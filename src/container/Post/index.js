@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { Helmet } from 'react-helmet';
-import LRCard from '../LRCard';
+import LRCard from '../../component/LRCard';
 
 class Post extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class Post extends React.Component {
       <div className="Post">
         <Helmet
           titleTemplate="Medium-Catogory Name"
-          defaultTitle="Medium-Catogory Name"
+          defaultTitle="Story Name"
         >
           <meta name="description" content="Post Name" />
         </Helmet>

@@ -1,0 +1,53 @@
+.NewPost {
+  $c-gray: #454545;
+  $c-gray-light: #9B9B9B;
+  
+  body {
+     background: rgba($c-gray-light, .15);
+  }
+  .grid {
+    max-width: 900px;
+    padding: 40px;
+  }
+  
+  textarea {
+    display: block;
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+  
+  .editable {
+    color: rgba($c-gray, .4);
+    margin-bottom: 20px;
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  .editable--heading {
+    font-size: 2em;
+  }
+  
+  .editable--subhead {
+    font-size: 1.5em;
+  }
+  
+  .editable--content {
+    font-size: 1em;
+  }
+
+}
+.medium-editor-toolbar li button {
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+}
+.medium-editor-toolbar li b:hover{
+  color: yellow;
+}
+.medium-editor-element img {
+  width: 700px;
+  height: 350px;
+}

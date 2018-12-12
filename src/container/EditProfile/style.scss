@@ -1,0 +1,40 @@
+.EditProfile {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  .profile {
+    margin-top: 64px;
+    display: block;
+    width: 60%;
+  }
+  .profile .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    float: right;
+  }
+  .upload {
+    float: right;
+    vertical-align : middle;
+  }
+  .profile .username{
+    font-size: 36px;
+    outline: none;
+    border: none;
+  }
+  .follow {
+    font-size: 12px;
+  }
+  .follow a{
+    margin: 8px;
+  }
+  button {
+    margin-right: 8px;
+  }
+  #image_uploads {
+    position:absolute;
+    height:100px;
+    width:100px;
+    opacity: 0;
+  }
+}

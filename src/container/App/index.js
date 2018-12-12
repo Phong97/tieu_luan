@@ -3,9 +3,13 @@ import { Helmet } from 'react-helmet';
 // import { Link } from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
 import Header from '../../container/Header';
-import Post from '../../component/Post';
+import Post from '../../container/Post';
 import HomePage from '../../container/HomePage';
 import NotFoundPage from '../../component/NotFoundPage';
+import CatogoryPage from '../../container/CatogoryPage';
+import UserPage from '../../container/UserPage';
+import EditProfile from '../../container/EditProfile';
+import NewPost from '../../container/NewPost';
 import './style.scss';
 
 const App = () => (
@@ -20,6 +24,10 @@ const App = () => (
     <Switch>
       <Route exact path='/' component={HomePage} />
       <Route path='/Post' component={Post} />
+      <Route path='/Catogory' component={CatogoryPage} />
+      <Route exact path='/user/edit' component={EditProfile}/>
+      <Route exact path='/user/new' component={NewPost}/>
+      <Route path='/user' component={UserPage}/>
       <Route path="" component={NotFoundPage} />
     </Switch>
   </div>

@@ -43,7 +43,7 @@ class Header extends React.Component {
     return (
       <div className="Header container">
         <nav className="navbar navbar-light justify-content-between ">
-          <a className="navbar-brand"><h2>Medium</h2></a>
+          <a href="/" className="navbar-brand"><h2>Medium</h2></a>
           <div>
             <button data-toggle="modal" data-target="#login-form" className="btn btn-outline-success my-2 my-sm-0 login">Sign in</button>
             <button data-toggle="modal" data-target="#signup-form" className="btn btn-outline-success my-2 my-sm-0">Get started</button>
