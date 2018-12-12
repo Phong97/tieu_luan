@@ -15,21 +15,9 @@ class SignupForm extends React.Component {
             </div>
             <div class="modal-body">
               <div className="row">
-                <div class="col-4 font-weight-600">UserName</div>
+                <div class="col-4 font-weight-600">Email</div>
                 <div class="col-8">
-                  <input type="text" name="username" placeholder="username" />
-                </div>
-              </div>
-              <div className="row">
-                <div class="col-4 font-weight-600">Password</div>
-                <div class="col-8">
-                  <input type="password" name="password" placeholder="password" />
-                </div>
-              </div>
-              <div className="row">
-                <div class="col-4 font-weight-600">Confirm Password</div>
-                <div class="col-8">
-                  <input type="password" name="confirm-password" placeholder="confirm password" />
+                  <input type="text" name="email" placeholder="Email" />
                 </div>
               </div>
             </div>

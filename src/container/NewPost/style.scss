@@ -36,7 +36,10 @@
   .editable--content {
     font-size: 1em;
   }
-
+  
+  .medium-editor-hidden {
+    display: none;
+  }
 }
 .medium-editor-toolbar li button {
   padding: 12px;

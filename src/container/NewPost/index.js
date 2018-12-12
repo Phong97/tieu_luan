@@ -29,16 +29,22 @@ class NewPost extends React.PureComponent {
     script.id = 'new_post';
     document.body.appendChild(script);
   }
-  componentWillUnmount (){
+  componentWillUnmount() {
     document.getElementById('new_post').remove();
   }
 
   render() {
     return (
       <div className="NewPost">
+        <Helmet
+          titleTemplate="New Post-Medium"
+          defaultTitle="New Post-Medium"
+        >
+          <meta name="description" content="New Post-Medium" />
+        </Helmet>
         <div class="grid">
           <div class="g-sm-1-1">
-            <div class="">
+            <div>
               <textarea type="text" class="editable editable--heading" data-placeholder="Title"></textarea>
               <textarea type="text" class="editable editable--subhead" data-placeholder="Description"></textarea>
               <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10"></textarea>
