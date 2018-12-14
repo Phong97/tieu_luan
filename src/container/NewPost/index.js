@@ -69,9 +69,25 @@ class NewPost extends React.PureComponent {
       const description = medium[1].value;
       const content = medium[2].value;
       const {catogory, image} = this.state;
-      axios.post('/', {
-        title,description,content,catogory,image
-      }).then(res => console.log(res));
+      let formData = new FormData();    
+
+      formData.append('title', title);   
+      formData.append('description', describe);
+      formData.append('content', content);   
+      formData.append('catogory', catogory);
+      formData.append('image', image);
+
+      const config = {     
+          headers: { 'content-type': 'multipart/form-data' }
+      }
+
+      axios.post('/', formData, config)
+          .then(response => {
+              console.log(response);
+          })
+          .catch(error => {
+              console.log(error);
+          });
   }
 
   render() {
