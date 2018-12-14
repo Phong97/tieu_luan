@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { Helmet } from 'react-helmet';
-
+import axios from 'axios';
 // list of items
 // const list = [
 //   { id: 0, name: 'item1', selected: true, key: 'catogory' },
@@ -18,7 +18,8 @@ import { Helmet } from 'react-helmet';
 class NewPost extends React.PureComponent {
   state = {
     catogory: "item1",
-    selected: 1
+    selected: 1,
+    image: ""
   }
   componentDidMount() {
     const str = `var editor = new MediumEditor('.editable', {
@@ -51,6 +52,26 @@ class NewPost extends React.PureComponent {
   }
   handleChangeCatogory = (name, key) => {
     this.setState({ catogory: name, selected: key });
+  }
+  onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.setState({image: e.target.result});
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    console.log(this.state.image);
+  }
+  handleSave = (evt) => {
+      const medium = document.getElementsByClassName('medium-editor-hidden');
+      const title = medium[0].value;
+      const description = medium[1].value;
+      const content = medium[2].value;
+      const {catogory, image} = this.state;
+      axios.post('/', {
+        title,description,content,catogory,image
+      }).then(res => console.log(res));
   }
 
   render() {
@@ -85,7 +106,7 @@ class NewPost extends React.PureComponent {
               </div>
               <textarea type="text" class="editable editable--heading" data-placeholder="Title"></textarea>
               <textarea type="text" class="editable editable--subhead" data-placeholder="Description"></textarea>
-              <input id="image" type="file" />
+              <input onChange={this.onImageChange} id="image" type="file" />
               <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10"></textarea>
             </div>
           </div>
