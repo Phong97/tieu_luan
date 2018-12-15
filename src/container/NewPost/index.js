@@ -64,14 +64,7 @@ class NewPost extends React.PureComponent {
   }
 
   onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        this.setState({ image: e.target.result });
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-    console.log(this.state.image);
+    this.setState({image:event.target.value});
   }
 
   handleSave = (evt) => {
@@ -80,19 +73,19 @@ class NewPost extends React.PureComponent {
     const description = medium[1].value;
     const content = medium[2].value;
     const { catogory, image } = this.state;
-    let formData = new FormData();
+    const user = localStorage.getItem('userid');
+    const data = {
+      title: title,
+      des: description,
+      content: content,
+      view : 0,
+      category:  catogory,
+      user: user,
+      state: 1,
+      img: image
+    };
 
-    formData.append('title', title);
-    formData.append('description', describe);
-    formData.append('content', content);
-    formData.append('catogory', catogory);
-    formData.append('image', image);
-
-    const config = {
-      headers: { 'content-type': 'multipart/form-data' }
-    }
-
-    axios.post('/', formData, config)
+    axios.post('http://localhost:3001/post/upload', data)
       .then(response => {
         console.log(response);
       })
@@ -157,7 +150,7 @@ class NewPost extends React.PureComponent {
   }
 
   render() {
-    const { catogory } = this.state;
+    const { catogory, image } = this.state;
     return (
       <div className="NewPost">
         <Helmet
@@ -176,19 +169,20 @@ class NewPost extends React.PureComponent {
                       {catogory}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("item 1", 1)}>item 1</button>
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("item 2", 2)}>item 2</button>
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("item 3", 3)}>item 3</button>
+                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("1", 1)}>item 1</button>
+                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("2", 2)}>item 2</button>
+                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("3", 3)}>item 3</button>
                     </div>
                   </div>
                 </div>
                 <div className="col-6">
-                  <button id="save-button" type="button" class="btn btn-outline-primary">Save</button>
+                  <button onClick={this.handleSave} id="save-button" type="button" class="btn btn-outline-primary">Save</button>
                 </div>
               </div>
               <textarea type="text" class="editable editable--heading" data-placeholder="Title"></textarea>
               <textarea type="text" class="editable editable--subhead" data-placeholder="Description"></textarea>
-              <input onChange={this.onImageChange} id="image" type="file" />
+              <div><img src={image} alt="title image"/></div>
+              <div><input onChange={this.onImageChange}  type="text" id="image" placeholder="title image"/></div>
               <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10"></textarea>
               <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button>
             </div>

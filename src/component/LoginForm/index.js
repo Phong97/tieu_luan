@@ -1,18 +1,32 @@
 import React from 'react';
 import './style.scss';
-
+import axios from 'axios';
 class LoginFrorm extends React.Component {
   state = {
-    login: null
+    username: '',
+    password: ''
   }
-  // componentDidMount () {
-  //   const login = $("#login-form");
-  //   this.setState({login : login})
-  // }
-  // handleLogin = () => {
-  //   $("#login-form").modal("hide");
-  // }
+  handleChangeUsername = (evt) => {
+    this.setState({ username: evt.target.value });
+  }
+  handleChangePassword = (evt) => {
+    this.setState({ password: evt.target.value });
+  }
+  handleLogin = () => {
+    const { username, password } = this.state;
+    axios.post('http://localhost:3001/user/check_login', {
+      "username": username,
+      "userpass" : password
+    }).then(res=> {
+      if (res.data[0]) {
+        localStorage.setItem('userid', res.data[0].id);
+      } else {
+        //
+      }
+    });
+  }
   render() {
+    const { username, password } = this.state;
     return (
       <div class="modal fade" id="login-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -27,19 +41,19 @@ class LoginFrorm extends React.Component {
               <div className="row">
                 <div class="col-3 font-weight-600">UserName</div>
                 <div class="col-9">
-                  <input type="text" placeholder="username" />
+                  <input onChange={this.handleChangeUsername} type="text" placeholder="username" value={username}/>
                 </div>
               </div>
               <div className="row">
                 <div class="col-3 font-weight-600">Password</div>
                 <div class="col-9">
-                  <input type="password" placeholder="password" />
+                  <input onChange={this.handleChangePassword} type="password" placeholder="password" value={password}/>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onClick={() => this.handleLogin}>Login</button>
+              <button type="button" class="btn btn-primary" onClick={this.handleLogin}>Login</button>
             </div>
           </div>
         </div>

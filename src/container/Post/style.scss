@@ -47,5 +47,10 @@
 
   .content-post {
     margin: 12px auto;
+    img {
+      height: 250px;
+      width: 80%;
+      display: block;
+    }
   }
 }
