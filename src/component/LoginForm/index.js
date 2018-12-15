@@ -2,6 +2,16 @@ import React from 'react';
 import './style.scss';
 
 class LoginFrorm extends React.Component {
+  state = {
+    login: null
+  }
+  // componentDidMount () {
+  //   const login = $("#login-form");
+  //   this.setState({login : login})
+  // }
+  // handleLogin = () => {
+  //   $("#login-form").modal("hide");
+  // }
   render() {
     return (
       <div class="modal fade" id="login-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -29,7 +39,7 @@ class LoginFrorm extends React.Component {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Login</button>
+              <button type="button" class="btn btn-primary" onClick={() => this.handleLogin}>Login</button>
             </div>
           </div>
         </div>

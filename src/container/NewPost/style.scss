@@ -40,6 +40,16 @@
   .medium-editor-hidden {
     display: none;
   }
+  #image {
+    font-size: 12px;
+    margin: 12px auto;
+  }
+  .dropdown {
+    margin: 12px auto;
+  }
+  #save-button {
+    float: right;
+  }
 }
 .medium-editor-toolbar li button {
   padding: 12px;

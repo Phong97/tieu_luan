@@ -36,31 +36,7 @@ class HomePage extends React.Component {
             <div className="col-md-12 col-lg-8 first">
               <div>
                 <div className="header-feature">
-                  <a className="left-more"><h3 className="h3-feature font-weight-600 ellipsis">Featured for members</h3></a>
-                  <a className="right-more font-weight-400">MORE ></a>
-                </div>
-                <hr className="divider" />
-                <MCard position="right" />
-                <MCard position="right" />
-                <MCard position="right" />
-                <MCard position="right" />
-                <MCard position="right" />
-              </div>
-              <div>
-                <div className="header-feature">
-                  <a className="left-more"><h3 className="h3-feature font-weight-600 ellipsis">Featured for members</h3></a>
-                  <a className="right-more font-weight-400">MORE ></a>
-                </div>
-                <hr className="divider" />
-                <MCard position="right" />
-                <MCard position="right" />
-                <MCard position="right" />
-                <MCard position="right" />
-                <MCard position="right" />
-              </div>
-              <div>
-                <div className="header-feature">
-                  <a className="left-more"><h3 className="h3-feature font-weight-600 ellipsis">Featured for members</h3></a>
+                  <a className="left-more"><h3 className="h3-feature font-weight-600 ellipsis">Others</h3></a>
                   <a className="right-more font-weight-400">MORE ></a>
                 </div>
                 <hr className="divider" />
