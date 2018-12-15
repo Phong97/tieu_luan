@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { Helmet } from 'react-helmet';
-
+import axios from 'axios';
 // list of items
 // const list = [
 //   { id: 0, name: 'item1', selected: true, key: 'catogory' },
@@ -24,7 +24,8 @@ class NewPost extends React.PureComponent {
     super(props);
   this.state = {
     catogory: "item1",
-    selected: 1
+    selected: 1,
+    image: ""
   }
 
 }
@@ -60,6 +61,7 @@ class NewPost extends React.PureComponent {
   handleChangeCatogory = (name, key) => {
     this.setState({ catogory: name, selected: key });
   }
+
   handledb() {
     var request = window.indexedDB.open("MyTestDatabase",6);
       var sel=this;
@@ -113,6 +115,7 @@ class NewPost extends React.PureComponent {
       }
       })
       }
+
   }
 
   render() {
@@ -147,7 +150,7 @@ class NewPost extends React.PureComponent {
               </div>
               <textarea type="text" class="editable editable--heading" data-placeholder="Title"></textarea>
               <textarea type="text" class="editable editable--subhead" data-placeholder="Description"></textarea>
-              <input id="image" type="file" />
+              <input onChange={this.onImageChange} id="image" type="file" />
               <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10"></textarea>
               <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button>
             </div>
