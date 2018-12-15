@@ -12,7 +12,7 @@ class Post extends React.Component {
     name: ''
   }
   componentDidMount() {
-    const id = 7;
+    const id = window.location.href.split('/')[4];
     axios.post('http://localhost:3001/post/load_post', { id }).then(res => {
       const { title, des, content, time, name } = res.data[0][0];
       this.setState({ title, des, content, time, name });
@@ -23,10 +23,10 @@ class Post extends React.Component {
     return (
       <div className="Post">
         <Helmet
-          titleTemplate="Medium-Catogory Name"
-          defaultTitle="Story Name"
+          titleTemplate={`Medium-${title}`}
+          defaultTitle={title}
         >
-          <meta name="description" content="Post Name" />
+          <meta name="description" content={title} />
         </Helmet>
         <div class="container">
           <h1 class="main-title font-weight-600" dangerouslySetInnerHTML={{__html: title}}></h1>

@@ -2,18 +2,7 @@ import React from 'react';
 import './style.scss';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-// list of items
-// const list = [
-//   { id: 0, name: 'item1', selected: true, key: 'catogory' },
-//   { id: 1, name: 'item2', selected: false, key: 'catogory' },
-//   { id: 2, name: 'item3', selected: false, key: 'catogory' },
-//   { id: 3, name: 'item4', selected: false, key: 'catogory' },
-//   { id: 4, name: 'item5', selected: false, key: 'catogory' },
-//   { id: 5, name: 'item6', selected: false, key: 'catogory' },
-//   { id: 6, name: 'item7', selected: false, key: 'catogory' },
-//   { id: 7, name: 'item8', selected: false, key: 'catogory' },
-//   { id: 8, name: 'item9', selected: false, key: 'catogory' }
-// ];
+
 var db;
 const customerData = [
   { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
@@ -23,7 +12,7 @@ class NewPost extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      catogory: "item1",
+      catogory: "INFORMATION",
       selected: 1,
       image: ""
     }
@@ -72,14 +61,14 @@ class NewPost extends React.PureComponent {
     const title = medium[0].value;
     const description = medium[1].value;
     const content = medium[2].value;
-    const { catogory, image } = this.state;
+    const { selected, image } = this.state;
     const user = localStorage.getItem('userid');
     const data = {
       title: title,
       des: description,
       content: content,
       view : 0,
-      category:  catogory,
+      category:  selected,
       user: user,
       state: 1,
       img: image
@@ -96,7 +85,7 @@ class NewPost extends React.PureComponent {
 
   handledb() {
     var request = window.indexedDB.open("MyTestDatabase", 6);
-    var sel = this;
+    // var sel = this;
     request.onerror = function (event) {
       window.alert('index DB is wrong');
     };
@@ -169,9 +158,9 @@ class NewPost extends React.PureComponent {
                       {catogory}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("1", 1)}>item 1</button>
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("2", 2)}>item 2</button>
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("3", 3)}>item 3</button>
+                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("INFORMATON", 1)}>INFORMATON</button>
+                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("ART", 2)}>ART</button>
+                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("TECH", 3)}>TECH</button>
                     </div>
                   </div>
                 </div>
@@ -181,10 +170,10 @@ class NewPost extends React.PureComponent {
               </div>
               <textarea type="text" class="editable editable--heading" data-placeholder="Title"></textarea>
               <textarea type="text" class="editable editable--subhead" data-placeholder="Description"></textarea>
-              <div><img src={image} alt="title image"/></div>
-              <div><input onChange={this.onImageChange}  type="text" id="image" placeholder="title image"/></div>
+              {image && <div><img src={image} className="img-title" alt="title"/></div>}
+              <div><input onChange={this.onImageChange}  type="text" id="image" placeholder="Link Title Image"/></div>
               <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10"></textarea>
-              <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button>
+              {/* <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button> */}
             </div>
           </div>
         </div>

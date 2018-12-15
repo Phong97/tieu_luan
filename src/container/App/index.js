@@ -23,8 +23,8 @@ const App = () => (
     <Header />
     <Switch>
       <Route exact path='/' component={HomePage} />
-      <Route path='/Post' component={Post} />
-      <Route path='/Catogory' component={CatogoryPage} />
+      <Route path='/Post/:id' component={Post} />
+      <Route path='/Catogory/:id' component={CatogoryPage} />
       <Route exact path='/user/edit' component={EditProfile}/>
       <Route exact path='/user/new' component={NewPost}/>
       <Route path='/user' component={UserPage}/>

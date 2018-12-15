@@ -4,25 +4,20 @@ import './style.scss';
 
 // list of items
 const list = [
-  { name: 'item1' },
-  { name: 'item2' },
-  { name: 'item3' },
-  { name: 'item4' },
-  { name: 'item5' },
-  { name: 'item6' },
-  { name: 'item7' },
-  { name: 'item8' },
-  { name: 'item9' }
+  { name: 'INFORMATON', id : 1 },
+  { name: 'ART', id : 2 },
+  { name: 'TECH', id : 3 },
 ];
 
 // One item component
 // selected prop will be passed
-const MenuItem = ({ text, selected }) => {
+const MenuItem = ({ text, key, id }) => {
+  const url = "/catogory/" + id;
   return (
     <div
       className="menu-item"
     >
-      <a href="/catogory">{text}</a>
+      <a href={url}>{text}</a>
     </div>
   );
 };
@@ -30,12 +25,12 @@ const MenuItem = ({ text, selected }) => {
 // All items component
 // Important! add unique key
 const MenuItems = (list) => list.map(el => {
-  const { name } = el;
-
+  const { name, id } = el;
   return (
     <MenuItem
       text={name}
-      key={name}
+      key={id}
+      id={id}
     />
   );
 });

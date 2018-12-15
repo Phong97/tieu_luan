@@ -33,7 +33,7 @@ class EditProfile extends React.PureComponent {
         <div class="profile">
           <a className="upload">
             <img src={avatar} alt="avatar" className="avatar" />
-            <input onChange={this.handleChangeAvatar} type="file" id="image_uploads" name="image_uploads" id="image_uploads" accept=".jpg, .jpeg, .png" />
+            <input onChange={this.handleChangeAvatar} type="file" name="image_uploads" id="image_uploads" accept=".jpg, .jpeg, .png" />
           </a>
           <div>
             <input type="text" value={name} onChange={this.handleChangeName} className="font-weight-600 username" />

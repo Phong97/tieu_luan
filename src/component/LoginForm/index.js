@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import axios from 'axios';
+
 class LoginFrorm extends React.Component {
   state = {
     username: '',
@@ -21,7 +22,7 @@ class LoginFrorm extends React.Component {
       if (res.data[0]) {
         localStorage.setItem('userid', res.data[0].id);
       } else {
-        //
+        alert('Username or Password is not correct!')
       }
     });
   }
@@ -53,7 +54,7 @@ class LoginFrorm extends React.Component {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onClick={this.handleLogin}>Login</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.handleLogin}>Login</button>
             </div>
           </div>
         </div>

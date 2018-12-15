@@ -2,11 +2,25 @@ import React from 'react';
 import './style.scss';
 import Item from '../../component/ItemPostUserPage';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 class UserPage extends React.PureComponent {
-
-
-  render() {
+  state = {
+    profile: ''
+  }
+  componentDidMount() {
+    const userid = localStorage.getItem('userid');
+    axios.post('http://localhost:3001/user/user_id', {userid}).then(res => this.setState({ profile: res.data[0][0]}));
+  }
+   render() {
+     const {profile} = this.state;
+     let avatar = "http://placehold.it/80x80";
+     let name = "";
+     if (profile) {
+       avatar = profile.avartar ? profile.avartar : "http://placehold.it/80x80";
+       name = profile.name;
+       console.log(avatar);
+     }
     return (
       <div className="UserPage">
         <Helmet
@@ -17,10 +31,10 @@ class UserPage extends React.PureComponent {
         </Helmet>
         <div class="profile">
           <a>
-            <img src="http://placehold.it/80x80" alt="avatar" className="avatar" />
+            <img src={avatar} alt="avatar" className="avatar" />
           </a>
           <div>
-            <span className="font-weight-600 username">Evan Freitas</span>
+            <span className="font-weight-600 username">{name}</span>
             <a href='/user/edit' class="button">Edit profile</a>
           </div>
           <div className="follow font-weight-400">
