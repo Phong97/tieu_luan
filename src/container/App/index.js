@@ -26,7 +26,7 @@ const App = () => (
       <Route path='/Post/:id' component={Post} />
       <Route path='/Catogory/:id' component={CatogoryPage} />
       <Route exact path='/user/edit' component={EditProfile}/>
-      <Route exact path='/user/new' component={NewPost}/>
+      <Route path='/user/new' component={NewPost}/>
       <Route path='/user' component={UserPage}/>
       <Route path="" component={NotFoundPage} />
     </Switch>

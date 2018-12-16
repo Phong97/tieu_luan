@@ -15,6 +15,7 @@ class Post extends React.Component {
     const id = window.location.href.split('/')[4];
     axios.post('http://localhost:3001/post/load_post', { id }).then(res => {
       const { title, des, content, time, name } = res.data[0][0];
+      console.log(res.data[0])
       this.setState({ title, des, content, time, name });
     })
   }

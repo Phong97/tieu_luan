@@ -6,21 +6,28 @@ import axios from 'axios';
 
 class UserPage extends React.PureComponent {
   state = {
-    profile: ''
+    profile: '',
+    all_post: ''
   }
   componentDidMount() {
     const userid = localStorage.getItem('userid');
-    axios.post('http://localhost:3001/user/user_id', {userid}).then(res => this.setState({ profile: res.data[0][0]}));
+    axios.post('http://localhost:3001/user/user_id', { userid }).then(res => this.setState({ profile: res.data[0][0] }));
+    axios.post('http://localhost:3001/user/user_id_post', { userid }).then(res => {
+      const all = res.data[0];
+      const all_post = all.map(post => {
+        return <Item data={post} />;
+      });
+      this.setState({ all_post });
+    });
   }
-   render() {
-     const {profile} = this.state;
-     let avatar = "http://placehold.it/80x80";
-     let name = "";
-     if (profile) {
-       avatar = profile.avartar ? profile.avartar : "http://placehold.it/80x80";
-       name = profile.name;
-       console.log(avatar);
-     }
+  render() {
+    const { profile, all_post } = this.state;
+    let avatar = "http://placehold.it/80x80";
+    let name = "";
+    if (profile) {
+      avatar = profile.avartar ? profile.avartar : "http://placehold.it/80x80";
+      name = profile.name;
+    }
     return (
       <div className="UserPage">
         <Helmet
@@ -50,11 +57,7 @@ class UserPage extends React.PureComponent {
             </div>
           </div>
           <hr className="divider" />
-          <Item publish={false} />
-          <Item publish={false} />
-          <Item publish={false} />
-          <Item publish={false} />
-          <Item publish={false} />
+          {all_post}
         </div>
         <div class="modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">

@@ -8,13 +8,14 @@ const customerData = [
   { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
   { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
 ];
-class NewPost extends React.PureComponent {
+class NewPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       catogory: "INFORMATION",
       selected: 1,
-      image: ""
+      image: "",
+      data: ""
     }
 
   }
@@ -43,6 +44,10 @@ class NewPost extends React.PureComponent {
     script.innerHTML = str;
     script.id = 'new_post';
     document.body.appendChild(script);
+    const id = window.location.href.split('/')[5];
+    axios.post('http://localhost:3001/post/load_post', { id }).then(res => {
+      this.setState({ data: res.data[0][0] });
+    })
   }
   componentWillUnmount() {
     document.getElementById('new_post').remove();
@@ -53,7 +58,7 @@ class NewPost extends React.PureComponent {
   }
 
   onImageChange = (event) => {
-    this.setState({image:event.target.value});
+    this.setState({ image: event.target.value });
   }
 
   handleSave = (evt) => {
@@ -67,8 +72,8 @@ class NewPost extends React.PureComponent {
       title: title,
       des: description,
       content: content,
-      view : 0,
-      category:  selected,
+      view: 0,
+      category: selected,
       user: user,
       state: 1,
       img: image
@@ -139,7 +144,30 @@ class NewPost extends React.PureComponent {
   }
 
   render() {
-    const { catogory, image } = this.state;
+    const { catogory, image, data } = this.state;
+    let img = image;
+    let category = catogory;
+    let title = '';
+    let des = '';
+    let content = '';
+    if (data) {
+      img = data.img;
+      title = data.title.replace('<p>', '');
+      title = title.replace('</p>', '');
+      des = data.des.replace('<p>', '');
+      des = des.replace('</p>', '');
+      content = data.content.replace('<p>', '');
+      content = content.replace('</p>', '');
+      document.getElementsByClassName('editable--heading').value = title;
+      if (data.category === 1) {
+        category = "INFORMATION";
+      } else if (data.category === 2) {
+        category = "ART";
+      } if (data.category === 3) {
+        category = "TECH";
+      }
+    }
+    console.log(title);
     return (
       <div className="NewPost">
         <Helmet
@@ -155,7 +183,7 @@ class NewPost extends React.PureComponent {
                 <div className="col-6">
                   <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {catogory}
+                      {category}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                       <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("INFORMATON", 1)}>INFORMATON</button>
@@ -168,11 +196,11 @@ class NewPost extends React.PureComponent {
                   <button onClick={this.handleSave} id="save-button" type="button" class="btn btn-outline-primary">Save</button>
                 </div>
               </div>
-              <textarea type="text" class="editable editable--heading" data-placeholder="Title"></textarea>
-              <textarea type="text" class="editable editable--subhead" data-placeholder="Description"></textarea>
-              {image && <div><img src={image} className="img-title" alt="title"/></div>}
-              <div><input onChange={this.onImageChange}  type="text" id="image" placeholder="Link Title Image"/></div>
-              <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10"></textarea>
+              <textarea type="text" class="editable editable--heading" data-placeholder="Title">{category}</textarea>
+              <textarea type="text" class="editable editable--subhead" data-placeholder="Description">{des}</textarea>
+              {img && <div><img src={img} className="img-title" alt="title" /></div>}
+              <div><input value={img} onChange={this.onImageChange} type="text" id="image" placeholder="Link Title Image" /></div>
+              <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10">{content}</textarea>
               {/* <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button> */}
             </div>
           </div>

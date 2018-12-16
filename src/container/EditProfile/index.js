@@ -1,11 +1,17 @@
 import React from 'react';
 import './style.scss';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 class EditProfile extends React.PureComponent {
   state = {
-    name: "Evan Freitas",
-    avatar: "http://placehold.it/80x80"
+    name: "",
+    avatar: "http://placehold.it/80x80",
+    profile: ''
+  }
+  componentDidMount() {
+    const userid = localStorage.getItem('userid');
+    axios.post('http://localhost:3001/user/user_id', { userid }).then(res => this.setState({ profile: res.data[0][0] }));
   }
 
   handleChangeName = (evt) => {
@@ -21,7 +27,12 @@ class EditProfile extends React.PureComponent {
     }
   }
   render() {
-    const { name, avatar } = this.state;
+    const { name, avatar, profile } = this.state;
+    if (profile) {
+      let avt = profile.avartar ? profile.avartar : "http://placehold.it/80x80";
+      let n = profile.name;
+      this.setState({avatar: avt, name: n});
+    }
     return (
       <div className="EditProfile">
         <Helmet
