@@ -13,7 +13,12 @@ class Header extends React.Component {
   }
   handleLogout = () => {
     localStorage.removeItem('userid');
-    this.setState({isLogin: false});
+    this.setState({ isLogin: false });
+  }
+  handleLogin = () => {
+    if (localStorage.getItem('userid')) {
+      this.setState({ isLogin: true });
+    }
   }
 
   render() {
@@ -31,11 +36,11 @@ class Header extends React.Component {
           {isLogin &&
             <div>
               <button className="btn btn-outline-success my-2 my-sm-0 login"><a href='/user'>User Page</a></button>
-              <button onClick={this.handleLogout} className="btn btn-outline-success my-2 my-sm-0">LogOut</button>
+              <button onClick={this.handleLogout} className="btn btn-outline-success my-2 my-sm-0"><a href="/">LogOut</a></button>
             </div>
           }
         </nav>
-        <LoginForm />
+        <LoginForm handleLogin={this.handleLogin}/>
         <SignupForm />
       </div>
     );

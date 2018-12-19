@@ -1,24 +1,70 @@
 import React from 'react';
 import './style.scss';
 import Item from '../../component/ItemPostUserPage';
+import MCard from '../../component/MCard';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 
 class UserPage extends React.PureComponent {
-  state = {
-    profile: '',
-    all_post: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: '',
+      all_post: '',
+      selected: ''
+    }
+    this.handleSelectedDelete = this.handleSelectedDelete.bind(this);
+    this.handlePublish = this.handlePublish.bind(this);
+  }
+  loadBookmark = () => {
+    const userid = localStorage.getItem('userid');
+    axios.post('http://localhost:3001/user/user_bookmark', { userid }).then(res => {
+      const all = res.data[0];
+      console.log(res);
+      const all_post = all.map(post => {
+        return <MCard data={post} position="right" />;
+      });
+      this.setState({ all_post: all_post, selected: '' });
+    });
+  }
+  loadData = () => {
+    const userid = localStorage.getItem('userid');
+    axios.post('http://localhost:3001/user/user_id_post', { userid }).then(res => {
+      const all = res.data[0];
+      const all_post = all.map(post => {
+        return <Item handlePublish={this.handlePublish} handleSelectedDelete={this.handleSelectedDelete} data={post} />;
+      });
+      this.setState({ all_post: all_post, selected: '' });
+    });
+  }
+  handlePost = () => {
+    this.loadData();
+  }
+  handleBookmark = () => {
+    this.loadBookmark();
   }
   componentDidMount() {
     const userid = localStorage.getItem('userid');
     axios.post('http://localhost:3001/user/user_id', { userid }).then(res => this.setState({ profile: res.data[0][0] }));
-    axios.post('http://localhost:3001/user/user_id_post', { userid }).then(res => {
-      const all = res.data[0];
-      const all_post = all.map(post => {
-        return <Item data={post} />;
+    this.loadData();
+  }
+  handlePublish = (id) => {
+    axios.post('http://localhost:3001/post/publish', { id }).then(
+      res => {
+        this.loadData();
+        alert('Publish success!');
       });
-      this.setState({ all_post });
-    });
+  }
+  handleSelectedDelete = (id) => {
+    this.setState({ selected: id });
+  }
+  handleDeletePost = () => {
+    const postid = this.state.selected;
+    axios.post('http://localhost:3001/post/delete', { postid }).then(
+      res => {
+        this.loadData();
+        alert('Delete success!');
+      });
   }
   render() {
     const { profile, all_post } = this.state;
@@ -52,7 +98,10 @@ class UserPage extends React.PureComponent {
           <br />
           <div className="post">
             <div className="header-feature">
-              <a className="left-more font-weight-600">Post</a>
+              <div class="left-more">
+                <a onClick={this.handlePost} className="font-weight-600">Post</a>&nbsp;&nbsp;
+                <a onClick={this.handleBookmark} className="font-weight-600">Bookmark</a>
+              </div>
               <a href="/user/new" className="right-more font-weight-400">New post</a>
             </div>
           </div>
@@ -72,7 +121,7 @@ class UserPage extends React.PureComponent {
                 <p>Are you sure you want to remove this post?</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">OK</button>
+                <button onClick={this.handleDeletePost} type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
               </div>
             </div>

@@ -25,9 +25,9 @@ const App = () => (
       <Route exact path='/' component={HomePage} />
       <Route path='/Post/:id' component={Post} />
       <Route path='/Catogory/:id' component={CatogoryPage} />
-      <Route exact path='/user/edit' component={EditProfile}/>
-      <Route path='/user/new' component={NewPost}/>
-      <Route path='/user' component={UserPage}/>
+      {localStorage.getItem('userid') !== null && <Route exact path='/user/edit' component={EditProfile} />}
+      {localStorage.getItem('userid') !== null && <Route path='/user/new' component={NewPost} />}
+      {localStorage.getItem('userid') !== null && <Route path='/user' component={UserPage} />}
       <Route path="" component={NotFoundPage} />
     </Switch>
   </div>

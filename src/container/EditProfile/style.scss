@@ -37,4 +37,14 @@
     width:100px;
     opacity: 0;
   }
+  #avt-form {
+    input {
+      width: 100%;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+    .row {
+      margin: 12px 4px 32px 4px;
+    }
+  }
 }

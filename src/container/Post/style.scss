@@ -44,13 +44,22 @@
   span {
     margin: auto 8px;
   }
+  .red {
+    color: red;
+  }
 
   .content-post {
     margin: 12px auto;
+    line-height: 24px;
     img {
       height: 250px;
       width: 80%;
       display: block;
+    }
+  }
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 24px;
     }
   }
 }

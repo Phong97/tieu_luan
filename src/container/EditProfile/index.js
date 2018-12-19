@@ -7,32 +7,40 @@ class EditProfile extends React.PureComponent {
   state = {
     name: "",
     avatar: "http://placehold.it/80x80",
-    profile: ''
+    image: ''
   }
   componentDidMount() {
     const userid = localStorage.getItem('userid');
-    axios.post('http://localhost:3001/user/user_id', { userid }).then(res => this.setState({ profile: res.data[0][0] }));
+    axios.post('http://localhost:3001/user/user_id', { userid }).then(res => {
+      const profile = res.data[0][0];
+      if (profile) {
+        let avt = profile.avartar ? profile.avartar : "http://placehold.it/80x80";
+        let n = profile.name;
+        this.setState({ avatar: avt, name: n });
+      }
+    });
   }
-
+  handleSave = () => {
+    const userid = localStorage.getItem('userid');
+    const { name, avatar } = this.state;
+    axios.post('http://localhost:3001/user/update', { userid, name, avatar }).then(res => 
+    window.location.assign('/user'));
+  }
+  handleModalAvatar = () => {
+    this.setState({ image: this.state.avatar });
+  }
+  handleChangeImage = (evt) => {
+    this.setState({ image: evt.target.value });
+  }
   handleChangeName = (evt) => {
     this.setState({ name: evt.target.value });
   }
-  handleChangeAvatar = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        this.setState({ avatar: e.target.result });
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  handleChangeAvatar = () => {
+    const { image } = this.state;
+    this.setState({ avatar: image });
   }
   render() {
-    const { name, avatar, profile } = this.state;
-    if (profile) {
-      let avt = profile.avartar ? profile.avartar : "http://placehold.it/80x80";
-      let n = profile.name;
-      this.setState({avatar: avt, name: n});
-    }
+    const { name, avatar, image } = this.state;
     return (
       <div className="EditProfile">
         <Helmet
@@ -44,7 +52,7 @@ class EditProfile extends React.PureComponent {
         <div class="profile">
           <a className="upload">
             <img src={avatar} alt="avatar" className="avatar" />
-            <input onChange={this.handleChangeAvatar} type="file" name="image_uploads" id="image_uploads" accept=".jpg, .jpeg, .png" />
+            <button onClick={this.handleModalAvatar} data-toggle="modal" data-target="#avt-form" type="button" name="image_uploads" id="image_uploads" />
           </a>
           <div>
             <input type="text" value={name} onChange={this.handleChangeName} className="font-weight-600 username" />
@@ -57,8 +65,32 @@ class EditProfile extends React.PureComponent {
           <br />
           <hr className="divider" />
           <div>
-            <a href="/user"><button type="button" class="btn btn-outline-success">Save</button></a>
+            <a onClick={this.handleSave}><button type="button" class="btn btn-outline-success">Save</button></a>
             <a href="/user"><button type="button" class="btn btn-outline-dark">Cancel</button></a>
+          </div>
+        </div>
+        <div class="modal fade" id="avt-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-600" id="img-avt">Avartar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div className="row">
+                  <div class="col-4 font-weight-600">Url Image</div>
+                  <div class="col-8">
+                    <input onChange={this.handleChangeImage} type="text" name="image" placeholder="Image" value={image} />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onClick={this.handleChangeAvatar} type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

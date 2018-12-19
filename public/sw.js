@@ -1,7 +1,7 @@
 const cacheName='v1';
 var db;
 const urlCache=[
-    '/',
+    '/'
     ///index.html',
    
 ]
@@ -15,6 +15,7 @@ self.addEventListener('install',function(e){
 // self.addEventListener(active)
 self.addEventListener('fetch',function(e){
     var request=e.request;
+    console.log(request.destination);
     var findReponse=caches.open(cacheName)
     .then(cache=>cache.match(request))
     .then(response=>{

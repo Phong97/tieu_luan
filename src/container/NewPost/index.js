@@ -14,8 +14,12 @@ class NewPost extends React.Component {
     this.state = {
       catogory: "INFORMATION",
       selected: 1,
-      image: "",
-      data: ""
+      img: "",
+      category: "",
+      title: "",
+      des: "",
+      content: "",
+      edit: false
     }
 
   }
@@ -45,9 +49,52 @@ class NewPost extends React.Component {
     script.id = 'new_post';
     document.body.appendChild(script);
     const id = window.location.href.split('/')[5];
-    axios.post('http://localhost:3001/post/load_post', { id }).then(res => {
-      this.setState({ data: res.data[0][0] });
-    })
+    if (id) {
+      axios.post('http://localhost:3001/post/load_post', { id }).then(res => {
+        const data = res.data[0][0];
+        if (data) {
+          let img = data.img;
+          // let title = data.title.replace('<p>', '');
+          // title = title.replace('</p>', '');
+          // let des = data.des.replace('<p>', '');
+          // des = des.replace('</p>', '');
+          // let content = data.content.replace('<p>', '');
+          // content = content.replace('</p>', '<br />');
+          let title = data.title;
+          let des = data.des;
+          let content = data.content;
+          let category = "INFORMATION";
+          let selected = 1;
+          if (data.category === 1) {
+            category = "INFORMATION";
+            selected = 1;
+          } else if (data.category === 2) {
+            category = "ART";
+            selected = 2;
+          } if (data.category === 3) {
+            category = "TECH";
+            selected = 3;
+          }
+          this.setState({ img, title, des, content, category, selected, edit: true });
+          const medium = document.getElementsByClassName('medium-editor-hidden');
+          medium[0].value = title;
+          medium[1].value = des;
+          medium[2].value = content;
+          title = data.title.replace('<p>', '');
+          title = title.replace('</p>', '');
+          des = data.des.replace('<p>', '');
+          des = des.replace('</p>', '');
+          content = data.content.replace('<p>', '');
+          content = content.replace('</p>', '<br />');
+          document.getElementsByClassName('editable--heading')[0].innerHTML = this.state.title;
+          document.getElementsByClassName('editable--subhead')[0].innerHTML = this.state.des;
+          document.getElementsByClassName('editable--content')[0].innerHTML = this.state.content;
+        } else {
+          alert('Post not found');
+          window.location.assign('/');
+        }
+      })
+    }
   }
   componentWillUnmount() {
     document.getElementById('new_post').remove();
@@ -58,34 +105,49 @@ class NewPost extends React.Component {
   }
 
   onImageChange = (event) => {
-    this.setState({ image: event.target.value });
+    this.setState({ img: event.target.value });
   }
 
   handleSave = (evt) => {
     const medium = document.getElementsByClassName('medium-editor-hidden');
     const title = medium[0].value;
     const description = medium[1].value;
-    const content = medium[2].value;
-    const { selected, image } = this.state;
+    let content = medium[2].value;
+    content = content.replace('<p class="">&lt;img', '<p class=""><img');
+    content = content.replace('&lt;<br>', '><br>');
+    const { selected, img, edit } = this.state;
     const user = localStorage.getItem('userid');
     const data = {
       title: title,
       des: description,
       content: content,
-      view: 0,
       category: selected,
-      user: user,
-      state: 1,
-      img: image
+      img: img
     };
-
-    axios.post('http://localhost:3001/post/upload', data)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (edit) {
+      data.id = window.location.href.split('/')[5];
+      console.log(data.id);
+      axios.post('http://localhost:3001/post/update', data)
+        .then(response => {
+          alert('Update Post Successful!');
+          window.location.assign('/user');
+        })
+        .catch(error => {
+          alert('Update Post Error!')
+        });
+    } else {
+      data.view = 0;
+      data.state = 0;
+      data.user = user;
+      axios.post('http://localhost:3001/post/upload', data)
+        .then(response => {
+          alert('Create Post Successful!');
+          window.location.assign('/user');
+        })
+        .catch(error => {
+          alert('Create Post Error!')
+        });
+    }
   }
 
   handledb() {
@@ -142,32 +204,14 @@ class NewPost extends React.Component {
       })
     }
   }
-
+  // componentDidUpdate() {
+  //   const medium = document.getElementsByClassName('medium-editor-hidden');
+  //   document.getElementsByClassName('editable--heading')[0].innerHTML = this.state.title;
+  //   document.getElementsByClassName('editable--subhead')[0].innerHTML = this.state.des;
+  //   document.getElementsByClassName('editable--content')[0].innerHTML = this.state.content;
+  // }
   render() {
-    const { catogory, image, data } = this.state;
-    let img = image;
-    let category = catogory;
-    let title = '';
-    let des = '';
-    let content = '';
-    if (data) {
-      img = data.img;
-      title = data.title.replace('<p>', '');
-      title = title.replace('</p>', '');
-      des = data.des.replace('<p>', '');
-      des = des.replace('</p>', '');
-      content = data.content.replace('<p>', '');
-      content = content.replace('</p>', '');
-      document.getElementsByClassName('editable--heading').value = title;
-      if (data.category === 1) {
-        category = "INFORMATION";
-      } else if (data.category === 2) {
-        category = "ART";
-      } if (data.category === 3) {
-        category = "TECH";
-      }
-    }
-    console.log(title);
+    const { catogory, img, title, des, content } = this.state;
     return (
       <div className="NewPost">
         <Helmet
@@ -183,7 +227,7 @@ class NewPost extends React.Component {
                 <div className="col-6">
                   <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {category}
+                      {catogory}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                       <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("INFORMATON", 1)}>INFORMATON</button>
@@ -196,7 +240,7 @@ class NewPost extends React.Component {
                   <button onClick={this.handleSave} id="save-button" type="button" class="btn btn-outline-primary">Save</button>
                 </div>
               </div>
-              <textarea type="text" class="editable editable--heading" data-placeholder="Title">{category}</textarea>
+              <textarea value={title} id="title" type="text" class="editable editable--heading" data-placeholder="Title">{title}</textarea>
               <textarea type="text" class="editable editable--subhead" data-placeholder="Description">{des}</textarea>
               {img && <div><img src={img} className="img-title" alt="title" /></div>}
               <div><input value={img} onChange={this.onImageChange} type="text" id="image" placeholder="Link Title Image" /></div>

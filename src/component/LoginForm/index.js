@@ -21,6 +21,7 @@ class LoginFrorm extends React.Component {
     }).then(res=> {
       if (res.data[0]) {
         localStorage.setItem('userid', res.data[0].id);
+        this.props.handleLogin();
       } else {
         alert('Username or Password is not correct!')
       }
