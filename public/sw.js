@@ -52,6 +52,20 @@ self.addEventListener('sync',function(e){
             db = event.target.result;
             readpost();
         };
+
+    }
+    if(e.tag=='bookmark'){
+        console.log('sync!');
+        var request = indexedDB.open("PostBookmark",1);
+        request.onerror = function(event) {
+            window.alert('index DB is wrong');
+          };
+        // nếu thành công
+        request.onsuccess = function(event) {
+            console.log("running onsuccess");
+            db = event.target.result;
+            readbookmark();
+        };
     }
     function readpost(){
         db.transaction("posts").objectStore("posts").get("1").onsuccess = function(event) {
@@ -77,5 +91,42 @@ self.addEventListener('sync',function(e){
               .then(response => console.log('Success:', response))
               .catch(error => console.error('Error:', error));
           };
+    }
+    function readbookmark(){
+        var objectStore = db.transaction(["bookmark"],"readwrite").objectStore("bookmark");
+        var postbookmark = [];
+        objectStore.openCursor().onsuccess = function(event) {
+        var cursor = event.target.result;
+        if (cursor) {
+            postbookmark.push(cursor.value);
+            cursor.continue();
+        }
+        else {//sync bookmark and cache bookmark
+            postbookmark.forEach(data=>{
+                let urlpage='/Post/'+data.ppostid;
+                let url='http://localhost:3001/post/load_post/'+data.ppostid+'/';
+                fetch(url).then(res =>{
+                    caches.open(cacheName)
+                    .then(cache=>{
+                        cache.put(url,res.clone())
+                    })
+                })
+                fetch(urlpage).then(res =>{
+                    caches.open(cacheName)
+                    .then(cache=>{
+                        cache.put(urlpage,res.clone())
+                    })
+                })
+            });
+            //Xoa indexdb
+            var requestdelete=objectStore.clear();
+            requestdelete.onsuccess=function(event){
+                console.log('Xoa thanh cong');
+             }
+            requestdelete.onerror=function(){
+                window.alert('xoa that bai');
+             }
+        }
+    }
     }
 })
