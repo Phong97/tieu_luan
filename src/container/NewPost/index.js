@@ -4,10 +4,8 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 
 var db;
-const customerData = [
-  { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
-  { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
-];
+var selectedcategory='';
+var urlimage='';
 class NewPost extends React.Component {
   constructor(props) {
     super(props);
@@ -149,9 +147,8 @@ class NewPost extends React.Component {
         });
     }
   }
-
   handledb() {
-    var request = window.indexedDB.open("MyTestDatabase", 6);
+    var request = window.indexedDB.open("PostDatabase", 6);
     // var sel = this;
     request.onerror = function (event) {
       window.alert('index DB is wrong');
@@ -160,23 +157,48 @@ class NewPost extends React.Component {
     request.onsuccess = function (event) {
       console.log("running onsuccess");
       db = event.target.result;
-      addPerson();
+      addPost();
     };
 
     request.onupgradeneeded = function (event) {
       window.alert('add data');
       var db = event.target.result;
       console.log("running onupgradeneeded");
-      if (!db.objectStoreNames.contains("customers")) {
-        var objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
-        objectStore.createIndex("name", "name", { unique: false });
-        objectStore.createIndex("email", "email", { unique: true });
+      if (!db.objectStoreNames.contains("posts")) {
+        var objectStore = db.createObjectStore("posts", { keyPath: "id" });
+        objectStore.createIndex("title", "title", { unique: false });
+        objectStore.createIndex("des", "des", { unique: false });
+        objectStore.createIndex("content", "content", { unique: true });
+        objectStore.createIndex("view", "", { unique: true });
+        objectStore.createIndex("category", "category", { unique: true });
+        objectStore.createIndex("user", "user", { unique: true });
+        objectStore.createIndex("state", "state", { unique: true });
+        objectStore.createIndex("img", "img", { unique: true });
       }
     };
-    function addPerson() {
+    function addPost() {
+      const medium = document.getElementsByClassName('medium-editor-hidden');
+      const title = medium[0].value;
+      const description = medium[1].value;
+      const content = medium[2].value;
+      const selected= selectedcategory;
+      const image=urlimage;
+      const user = localStorage.getItem('userid');
+      const data = {
+        id:"1",
+        title: title,
+        des: description,
+        content: content,
+        view : 0,
+        category:  selected,
+        user: user,
+        state: 1,
+        img: image
+      };
+
       //Get a transaction
       //default for OS list is all, default for type is read
-      var transaction = db.transaction(["customers"], "readwrite");
+      var transaction = db.transaction(["posts"], "readwrite");
       transaction.oncomplete = function (event) {
         console.log("All done!");
         navigator.serviceWorker.ready
@@ -191,9 +213,15 @@ class NewPost extends React.Component {
         // Don't forget to handle errors!
       };
       //Ask for the objectStore
-      var objectStore = transaction.objectStore("customers");
-      customerData.forEach(function (customer) {
-        var request = objectStore.add(customer);
+      var objectStore = transaction.objectStore("posts");
+        var requestdelete=objectStore.clear();
+        requestdelete.onsuccess=function(event){
+            window.alert('Xoa thanh cong');
+        }
+        requestdelete.onerror=function(){
+            window.alert('xoa that bai');
+        }
+        var request = objectStore.add(data);
         request.onsuccess = function (event) {
           // event.target.result === customer.ssn;
         };
@@ -201,7 +229,6 @@ class NewPost extends React.Component {
           console.log("Error", event.target.error.name);
           //some type of error handler
         }
-      })
     }
   }
   // componentDidUpdate() {
@@ -238,6 +265,7 @@ class NewPost extends React.Component {
                 </div>
                 <div className="col-6">
                   <button onClick={this.handleSave} id="save-button" type="button" class="btn btn-outline-primary">Save</button>
+                  <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button>
                 </div>
               </div>
               <textarea value={title} id="title" type="text" class="editable editable--heading" data-placeholder="Title">{title}</textarea>
@@ -245,7 +273,8 @@ class NewPost extends React.Component {
               {img && <div><img src={img} className="img-title" alt="title" /></div>}
               <div><input value={img} onChange={this.onImageChange} type="text" id="image" placeholder="Link Title Image" /></div>
               <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10">{content}</textarea>
-              {/* <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button> */}
+             
+             
             </div>
           </div>
         </div>
