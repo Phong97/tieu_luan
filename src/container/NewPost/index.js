@@ -149,7 +149,6 @@ class NewPost extends React.Component {
   }
   handledb() {
     var request = window.indexedDB.open("PostDatabase", 6);
-    // var sel = this;
     request.onerror = function (event) {
       window.alert('index DB is wrong');
     };
@@ -231,12 +230,6 @@ class NewPost extends React.Component {
         }
     }
   }
-  // componentDidUpdate() {
-  //   const medium = document.getElementsByClassName('medium-editor-hidden');
-  //   document.getElementsByClassName('editable--heading')[0].innerHTML = this.state.title;
-  //   document.getElementsByClassName('editable--subhead')[0].innerHTML = this.state.des;
-  //   document.getElementsByClassName('editable--content')[0].innerHTML = this.state.content;
-  // }
   render() {
     const { catogory, img, title, des, content } = this.state;
     return (
