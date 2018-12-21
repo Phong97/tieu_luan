@@ -91,7 +91,7 @@ class Post extends React.Component {
               <img src={avartar} alt="avatar" />
             </a>
             <span>{name}</span>
-            <i onClick={this.handleBookmark} class={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i>
+            <a><i onClick={this.handleBookmark} class={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
             <br /><span class="date">{time}</span>
           </div>
           <div className="content-post" dangerouslySetInnerHTML={{ __html: content }}>
@@ -101,7 +101,7 @@ class Post extends React.Component {
               <img src="https://image.flaticon.com/icons/svg/511/511213.svg" alt="" />
             </a>
             <span>{clap} claps</span>
-            <i onClick={this.handleBookmark} class={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i>
+            <a><i onClick={this.handleBookmark} class={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
           </div>
           <hr className="divider" />
           <div class="profile">
