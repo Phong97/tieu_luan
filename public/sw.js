@@ -38,6 +38,53 @@ self.addEventListener('fetch',function(e){
     e.respondWith(findReponse);
     
 });
+self.addEventListener('notificationclick',function(e){
+    var notification=e.notification;
+    var action=e.action;
+    console.log(notification);
+    if(action=='confirm'){
+        console.log('confirm was chosen');
+        notification.close();
+    }else{
+        e.waitUntil(
+            clients.matchAll()
+            .then(clis=>{
+                var client=clis.find(c=>{
+                    return c.visibilityState==='visible';
+                });
+                if (client!==undefined){
+                    client.navigate(notification.data.openurl);
+                    client.focus();
+                }else{
+                    clients.openWindow(notification.data.openurl);
+                }
+                notification.close();
+            })
+            )
+    }
+
+});
+self.addEventListener('notificationclose',function(event){
+    console.log('notification was close:',event)
+})
+self.addEventListener('push',event=>{
+    console.log('push notification recive');
+    var data={title:'', content:'',openurl:''};
+    if(event.data){
+        data=JSON.parse(event.data.text());
+    }
+    var option={
+        body:data.content,
+        icon:'/Rocket-icon-blue.png',
+        image:'/Rocket-icon-blue.png',
+        data:{
+            openurl:data.openurl
+        }
+    };
+    event.waitUntil(
+        self.registration.showNotification(data.title,option)
+    );
+})
 
 self.addEventListener('sync',function(e){
     if(e.tag==='submit'){
