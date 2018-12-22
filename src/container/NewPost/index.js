@@ -111,7 +111,7 @@ class NewPost extends React.Component {
     const title = medium[0].value;
     const description = medium[1].value;
     let content = medium[2].value;
-    content = content.replace('<p class="">&lt;img', '<p class=""><img');
+    content = content.replace('<p className="">&lt;img', '<p className=""><img');
     content = content.replace('&lt;<br>', '><br>');
     const { selected, img, edit } = this.state;
     const user = localStorage.getItem('userid');
@@ -149,7 +149,6 @@ class NewPost extends React.Component {
   }
   handledb() {
     var request = window.indexedDB.open("PostDatabase", 6);
-    // var sel = this;
     request.onerror = function (event) {
       window.alert('index DB is wrong');
     };
@@ -231,12 +230,6 @@ class NewPost extends React.Component {
         }
     }
   }
-  // componentDidUpdate() {
-  //   const medium = document.getElementsByClassName('medium-editor-hidden');
-  //   document.getElementsByClassName('editable--heading')[0].innerHTML = this.state.title;
-  //   document.getElementsByClassName('editable--subhead')[0].innerHTML = this.state.des;
-  //   document.getElementsByClassName('editable--content')[0].innerHTML = this.state.content;
-  // }
   render() {
     const { catogory, img, title, des, content } = this.state;
     return (
@@ -247,32 +240,32 @@ class NewPost extends React.Component {
         >
           <meta name="description" content="New Post-Medium" />
         </Helmet>
-        <div class="grid">
-          <div class="g-sm-1-1">
+        <div className="grid">
+          <div className="g-sm-1-1">
             <div>
               <div className="row">
                 <div className="col-6">
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div className="dropdown">
+                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {catogory}
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("INFORMATON", 1)}>INFORMATON</button>
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("ART", 2)}>ART</button>
-                      <button class="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("TECH", 3)}>TECH</button>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                      <button className="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("INFORMATON", 1)}>INFORMATON</button>
+                      <button className="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("ART", 2)}>ART</button>
+                      <button className="dropdown-item" type="button" onClick={() => this.handleChangeCatogory("TECH", 3)}>TECH</button>
                     </div>
                   </div>
                 </div>
                 <div className="col-6">
-                  <button onClick={this.handleSave} id="save-button" type="button" class="btn btn-outline-primary">Save</button>
-                  <button id="save-button" type="button" class="btn btn-outline-primary" onClick={this.handledb}>Save2</button>
+                  <button onClick={this.handleSave} id="save-button" type="button" className="btn btn-outline-primary">Save</button>
+                  <button id="save-button" type="button" className="btn btn-outline-primary" onClick={this.handledb}>Save2</button>
                 </div>
               </div>
-              <textarea value={title} id="title" type="text" class="editable editable--heading" data-placeholder="Title">{title}</textarea>
-              <textarea type="text" class="editable editable--subhead" data-placeholder="Description">{des}</textarea>
+              <textarea value={title} id="title" type="text" className="editable editable--heading" data-placeholder="Title">{title}</textarea>
+              <textarea type="text" className="editable editable--subhead" data-placeholder="Description">{des}</textarea>
               {img && <div><img src={img} className="img-title" alt="title" /></div>}
               <div><input value={img} onChange={this.onImageChange} type="text" id="image" placeholder="Link Title Image" /></div>
-              <textarea name="" class="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10">{content}</textarea>
+              <textarea name="" className="editable editable--content" data-placeholder="Tell your story..." id="" cols="30" rows="10">{content}</textarea>
              
              
             </div>

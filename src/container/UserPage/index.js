@@ -82,13 +82,13 @@ class UserPage extends React.PureComponent {
         >
           <meta name="description" content="Medium" />
         </Helmet>
-        <div class="profile">
+        <div className="profile">
           <a>
             <img src={avatar} alt="avatar" className="avatar" />
           </a>
           <div>
             <span className="font-weight-600 username">{name}</span>
-            <a href='/user/edit' class="button">Edit profile</a>
+            <a href='/user/edit' className="button">Edit profile</a>
           </div>
           <div className="follow font-weight-400">
             <a className="decoration"><span>15 Following</span></a>
@@ -98,7 +98,7 @@ class UserPage extends React.PureComponent {
           <br />
           <div className="post">
             <div className="header-feature">
-              <div class="left-more">
+              <div className="left-more">
                 <a onClick={this.handlePost} className="font-weight-600">Post</a>&nbsp;&nbsp;
                 <a onClick={this.handleBookmark} className="font-weight-600">Bookmark</a>
               </div>
@@ -108,21 +108,21 @@ class UserPage extends React.PureComponent {
           <hr className="divider" />
           {all_post}
         </div>
-        <div class="modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Confirm Deletion</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Confirm Deletion</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <p>Are you sure you want to remove this post?</p>
               </div>
-              <div class="modal-footer">
-                <button onClick={this.handleDeletePost} type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <div className="modal-footer">
+                <button onClick={this.handleDeletePost} type="button" className="btn btn-primary" data-dismiss="modal">OK</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
               </div>
             </div>
           </div>

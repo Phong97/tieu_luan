@@ -159,32 +159,32 @@ class Post extends React.Component {
         >
           <meta name="description" content={title} />
         </Helmet>
-        <div class="container">
-          <h1 class="main-title font-weight-600" dangerouslySetInnerHTML={{ __html: title }}></h1>
-          <div class="profile">
+        <div className="container">
+          <h1 className="main-title font-weight-600" dangerouslySetInnerHTML={{ __html: title }}></h1>
+          <div className="profile">
             <a>
               <img src={avartar} alt="avatar" />
             </a>
             <span>{name}</span>
-            <i onClick={this.handleBookmark} class={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i>
-            <br /><span class="date">{time}</span>
+            <a><i onClick={this.handleBookmark} className={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
+            <br /><span className="date">{time}</span>
           </div>
           <div className="content-post" dangerouslySetInnerHTML={{ __html: content }}>
           </div>
-          <div class="profile">
+          <div className="profile">
             <a onClick={this.handleClap}>
               <img src="https://image.flaticon.com/icons/svg/511/511213.svg" alt="" />
             </a>
             <span>{clap} claps</span>
-            <i onClick={this.handleBookmarkwithSW} class={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i>
+            <a><i onClick={this.handleBookmark} className={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
           </div>
           <hr className="divider" />
-          <div class="profile">
+          <div className="profile">
             <a>
               <img src={avartar} alt="avatar" />
             </a>
             <span>{name}</span>
-            <a class="button">Follow</a>
+            <a className="button">Follow</a>
           </div>
           <div className="row other-post">
             <div className="col-sm-12 col-md-6 col-lg-4">

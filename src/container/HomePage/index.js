@@ -20,7 +20,7 @@ class HomePage extends React.PureComponent {
     axios.get('http://localhost:3001/post/load_all').then(res => {
       const all = res.data[0];
       const all_post = all.map(post => {
-        return <MCard data={post} position="right" />;
+        return <MCard key={post.id} data={post} position="right" />;
       });
       this.setState({all_post});
     });

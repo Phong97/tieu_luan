@@ -49,7 +49,7 @@ class EditProfile extends React.PureComponent {
         >
           <meta name="description" content="Medium" />
         </Helmet>
-        <div class="profile">
+        <div className="profile">
           <a className="upload">
             <img src={avatar} alt="avatar" className="avatar" />
             <button onClick={this.handleModalAvatar} data-toggle="modal" data-target="#avt-form" type="button" name="image_uploads" id="image_uploads" />
@@ -65,30 +65,30 @@ class EditProfile extends React.PureComponent {
           <br />
           <hr className="divider" />
           <div>
-            <a onClick={this.handleSave}><button type="button" class="btn btn-outline-success">Save</button></a>
-            <a href="/user"><button type="button" class="btn btn-outline-dark">Cancel</button></a>
+            <a onClick={this.handleSave}><button type="button" className="btn btn-outline-success">Save</button></a>
+            <a href="/user"><button type="button" className="btn btn-outline-dark">Cancel</button></a>
           </div>
         </div>
-        <div class="modal fade" id="avt-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title font-weight-600" id="img-avt">Avartar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="avt-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title font-weight-600" id="img-avt">Avartar</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <div className="row">
-                  <div class="col-4 font-weight-600">Url Image</div>
-                  <div class="col-8">
+                  <div className="col-4 font-weight-600">Url Image</div>
+                  <div className="col-8">
                     <input onChange={this.handleChangeImage} type="text" name="image" placeholder="Image" value={image} />
                   </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button onClick={this.handleChangeAvatar} type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onClick={this.handleChangeAvatar} type="button" className="btn btn-primary" data-dismiss="modal">OK</button>
               </div>
             </div>
           </div>

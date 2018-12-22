@@ -22,9 +22,9 @@ class Item extends React.Component {
       <div>
         <MCard data={data} position="right" />
         <div className="command-button">
-          {!publish && <button onClick={() => this.props.handlePublish(data.id)} type="button" class="btn-sm btn-outline-success">Publish</button>}
-          <button type="button" class="btn-sm btn-outline-primary" ><a href={`/user/new/${id}`}>Edit</a></button>
-          <button onClick={() => this.props.handleSelectedDelete(data.id)} type="button" class="btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">Delete</button>
+          {!publish && <button onClick={() => this.props.handlePublish(data.id)} type="button" className="btn-sm btn-outline-success">Publish</button>}
+          <button type="button" className="btn-sm btn-outline-primary" ><a href={`/user/new/${id}`}>Edit</a></button>
+          <button onClick={() => this.props.handleSelectedDelete(data.id)} type="button" className="btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">Delete</button>
         </div>
       </div>
     );
