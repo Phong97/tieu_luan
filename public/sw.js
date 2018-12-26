@@ -1,3 +1,4 @@
+const host='https://288edc2b.ngrok.io/';
 const cacheName = 'v1';
 var db;
 const urlCache = [
@@ -14,7 +15,6 @@ self.addEventListener('install', function (e) {
 self.addEventListener('fetch', function (e) {
     var type = ['image', 'style', 'script'];
     var request = e.request;
-    console.log(request.destination);
     var findReponse = caches.open(cacheName)
         .then(cache => cache.match(request))
         .then(response => {
@@ -126,7 +126,7 @@ self.addEventListener('sync', function (e) {
                 "state": 1,
                 "img": result.img
             };
-            let url = 'http://localhost:3001/post/upload';
+            let url = host+'post/upload';
             fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -134,7 +134,7 @@ self.addEventListener('sync', function (e) {
                     'Content-Type': 'application/json'
                 }
             }).then(res => res)
-                .then(response => console.log('Success:', response))
+                .then(response => self.registration.showNotification('Them moi bai moi thanh cong'))
                 .catch(error => console.error('Error:', error));
         };
     }
@@ -150,7 +150,7 @@ self.addEventListener('sync', function (e) {
             else {//sync bookmark and cache bookmark
                 postbookmark.forEach(data => {
                     let urlpage = '/Post/' + data.ppostid;
-                    let url = 'http://localhost:3001/post/load_post/' + data.ppostid + '/';
+                    let url = host+'post/load_post/' + data.ppostid + '/';
                     fetch(url).then(res => {
                         caches.open(cacheName)
                             .then(cache => {

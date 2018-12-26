@@ -2,7 +2,8 @@ import React from 'react';
 import './style.scss';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-
+import urlbackend from '../../evn.js';
+var host=urlbackend();
 var db;
 var selectedcategory='';
 var urlimage='';
@@ -48,7 +49,7 @@ class NewPost extends React.Component {
     document.body.appendChild(script);
     const id = window.location.href.split('/')[5];
     if (id) {
-      axios.post('http://localhost:3001/post/load_post', { id }).then(res => {
+      axios.post(host+'post/load_post', { id }).then(res => {
         const data = res.data[0][0];
         if (data) {
           let img = data.img;
@@ -109,6 +110,7 @@ class NewPost extends React.Component {
   handleSave = (evt) => {
     const medium = document.getElementsByClassName('medium-editor-hidden');
     const title = medium[0].value;
+    console.log('tile of post:'+title);
     const description = medium[1].value;
     let content = medium[2].value;
     content = content.replace('<p className="">&lt;img', '<p className=""><img');
@@ -125,7 +127,7 @@ class NewPost extends React.Component {
     if (edit) {
       data.id = window.location.href.split('/')[5];
       console.log(data.id);
-      axios.post('http://localhost:3001/post/update', data)
+      axios.post(host+'post/update', data)
         .then(response => {
           alert('Update Post Successful!');
           window.location.assign('/user');
@@ -137,7 +139,7 @@ class NewPost extends React.Component {
       data.view = 0;
       data.state = 0;
       data.user = user;
-      axios.post('http://localhost:3001/post/upload', data)
+      axios.post(host+'post/upload', data)
         .then(response => {
           alert('Create Post Successful!');
           window.location.assign('/user');
@@ -215,14 +217,14 @@ class NewPost extends React.Component {
       var objectStore = transaction.objectStore("posts");
         var requestdelete=objectStore.clear();
         requestdelete.onsuccess=function(event){
-            window.alert('Xoa thanh cong');
+            
         }
         requestdelete.onerror=function(){
-            window.alert('xoa that bai');
+           
         }
         var request = objectStore.add(data);
         request.onsuccess = function (event) {
-          // event.target.result === customer.ssn;
+          
         };
         request.onerror = function (event) {
           console.log("Error", event.target.error.name);

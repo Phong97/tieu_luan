@@ -5,7 +5,8 @@ import LRCard from '../../component/LRCard';
 import MCard from '../../component/MCard';
 import Popular from '../../component/Popular';
 import axios from 'axios';
-
+import urlbackend from '../../evn.js';
+var host=urlbackend();
 class HomePage extends React.PureComponent {
   state = {
     openLogin: false,
@@ -15,9 +16,9 @@ class HomePage extends React.PureComponent {
     all_post: ''
   }
   componentDidMount() {
-    axios.get('http://localhost:3001/post/newest').then(res => this.setState({ top5: res.data[0] }));
-    axios.get('http://localhost:3001/post/viewest').then(res => this.setState({ top4: res.data[0] }));
-    axios.get('http://localhost:3001/post/load_all').then(res => {
+    axios.get(host+'post/newest').then(res => this.setState({ top5: res.data[0] }));
+    axios.get(host+'post/viewest').then(res => this.setState({ top4: res.data[0] }));
+    axios.get(host+'post/load_all').then(res => {
       const all = res.data[0];
       const all_post = all.map(post => {
         return <MCard key={post.id} data={post} position="right" />;

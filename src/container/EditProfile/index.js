@@ -2,7 +2,8 @@ import React from 'react';
 import './style.scss';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-
+import urlbackend from '../../evn.js';
+var host=urlbackend();
 class EditProfile extends React.PureComponent {
   state = {
     name: "",
@@ -11,7 +12,7 @@ class EditProfile extends React.PureComponent {
   }
   componentDidMount() {
     const userid = localStorage.getItem('userid');
-    axios.post('http://localhost:3001/user/user_id', { userid }).then(res => {
+    axios.post(host+'user/user_id', { userid }).then(res => {
       const profile = res.data[0][0];
       if (profile) {
         let avt = profile.avartar ? profile.avartar : "http://placehold.it/80x80";
@@ -23,7 +24,7 @@ class EditProfile extends React.PureComponent {
   handleSave = () => {
     const userid = localStorage.getItem('userid');
     const { name, avatar } = this.state;
-    axios.post('http://localhost:3001/user/update', { userid, name, avatar }).then(res => 
+    axios.post(host+'user/update', { userid, name, avatar }).then(res => 
     window.location.assign('/user'));
   }
   handleModalAvatar = () => {

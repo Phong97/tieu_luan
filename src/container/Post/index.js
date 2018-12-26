@@ -3,6 +3,8 @@ import './style.scss';
 import { Helmet } from 'react-helmet';
 import LRCard from '../../component/LRCard';
 import axios from 'axios';
+import urlbackend from '../../evn.js';
+var host=urlbackend();
 var db;
 class Post extends React.Component {
   state = {
@@ -18,19 +20,19 @@ class Post extends React.Component {
   }
   loadClap() {
     const postid = window.location.href.split('/')[4];
-    axios.post('http://localhost:3001/post/post_clap', { postid }).then(res => this.setState({ clap: res.data[0][0].clap }));
+    axios.post(host+'post/post_clap', { postid }).then(res => this.setState({ clap: res.data[0][0].clap }));
   }
   componentDidMount() {
-    axios.get('http://localhost:3001/post/newest').then(res => this.setState({ top5: res.data[0] }));
+    axios.get(host+'post/newest').then(res => this.setState({ top5: res.data[0] }));
     const id = window.location.href.split('/')[4];
     const userid = localStorage.getItem('userid');
-    axios.get('http://localhost:3001/post/load_post/'+id+'/').then(res => {
+    axios.get(host+'post/load_post/'+id+'/').then(res => {
       const { title, des, content, time, name, avartar } = res.data[0][0];
       this.loadClap();
       this.setState({ title, des, content, time, name, avartar });
     })
     if (userid) {
-      axios.post('http://localhost:3001/user/check_bookmark', { postid: id, userid }).then(
+      axios.post(host+'user/check_bookmark', { postid: id, userid }).then(
         res => {
           if (res.data[0][0]) {
             this.setState({ bookmark: 'red' });
@@ -44,7 +46,7 @@ class Post extends React.Component {
     const userid = localStorage.getItem('userid');
     console.log('handle bookmart');
     if (userid) {
-      axios.post('http://localhost:3001/user/bookmark', { postid, userid }).then(
+      axios.post(host+'user/bookmark', { postid, userid }).then(
         res => {
           const state = res.data[0].state;
           if (state) {
@@ -64,7 +66,7 @@ class Post extends React.Component {
     const postid = window.location.href.split('/')[4];
     const userid = localStorage.getItem('userid');
     if (userid) {
-      axios.post('http://localhost:3001/post/clap', { postid, userid }).then(
+      axios.post(host+'post/clap', { postid, userid }).then(
         res => this.loadClap()
       );
     } else {
@@ -75,7 +77,7 @@ class Post extends React.Component {
     const postid = window.location.href.split('/')[4];
     const userid = localStorage.getItem('userid');
     if (userid) {
-      axios.post('http://localhost:3001/user/bookmark', { postid, userid }).then(
+      axios.post(host+'user/bookmark', { postid, userid }).then(
         res => {
           const state = res.data[0].state;
           if (state) {
@@ -166,7 +168,7 @@ class Post extends React.Component {
               <img src={avartar} alt="avatar" />
             </a>
             <span>{name}</span>
-            <a><i onClick={this.handleBookmark} className={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
+            <a><i onClick={this.handleBookmarkwithSW} className={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
             <br /><span className="date">{time}</span>
           </div>
           <div className="content-post" dangerouslySetInnerHTML={{ __html: content }}>
@@ -176,7 +178,7 @@ class Post extends React.Component {
               <img src="https://image.flaticon.com/icons/svg/511/511213.svg" alt="" />
             </a>
             <span>{clap} claps</span>
-            <a><i onClick={this.handleBookmark} className={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
+            <a><i onClick={this.handleBookmarkwithSW} className={`far fa-bookmark ${bookmark}`} data-toggle="tooltip" data-placement="bottom" title="Bookmark this story to read later"></i></a>
           </div>
           <hr className="divider" />
           <div className="profile">

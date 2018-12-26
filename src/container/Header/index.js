@@ -2,6 +2,8 @@ import React from 'react';
 import './style.scss';
 import LoginForm from '../../component/LoginForm';
 import SignupForm from '../../component/SignupForm';
+import urlbackend from '../../evn.js';
+var host=urlbackend();
 var reg;
 class Header extends React.Component {
   state = {
@@ -47,7 +49,7 @@ class Header extends React.Component {
       })
       .then(function(newSub){
           console.log(JSON.stringify(newSub));
-          fetch("http://localhost:3001/user/subcribe",{
+          fetch(host+"user/subcribe",{
               method:'POST',
               headers:{
                   'Content-Type':'application/json',

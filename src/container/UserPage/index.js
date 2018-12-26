@@ -4,7 +4,8 @@ import Item from '../../component/ItemPostUserPage';
 import MCard from '../../component/MCard';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-
+import urlbackend from '../../evn.js';
+var host=urlbackend();
 class UserPage extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -18,7 +19,7 @@ class UserPage extends React.PureComponent {
   }
   loadBookmark = () => {
     const userid = localStorage.getItem('userid');
-    axios.post('http://localhost:3001/user/user_bookmark', { userid }).then(res => {
+    axios.post(host+'user/user_bookmark', { userid }).then(res => {
       const all = res.data[0];
       console.log(res);
       const all_post = all.map(post => {
@@ -29,7 +30,7 @@ class UserPage extends React.PureComponent {
   }
   loadData = () => {
     const userid = localStorage.getItem('userid');
-    axios.post('http://localhost:3001/user/user_id_post', { userid }).then(res => {
+    axios.post(host+'user/user_id_post', { userid }).then(res => {
       const all = res.data[0];
       const all_post = all.map(post => {
         return <Item handlePublish={this.handlePublish} handleSelectedDelete={this.handleSelectedDelete} data={post} />;
@@ -45,11 +46,11 @@ class UserPage extends React.PureComponent {
   }
   componentDidMount() {
     const userid = localStorage.getItem('userid');
-    axios.post('http://localhost:3001/user/user_id', { userid }).then(res => this.setState({ profile: res.data[0][0] }));
+    axios.post(host+'user/user_id', { userid }).then(res => this.setState({ profile: res.data[0][0] }));
     this.loadData();
   }
   handlePublish = (id) => {
-    axios.post('http://localhost:3001/post/publish', { id }).then(
+    axios.post(host+'post/publish', { id }).then(
       res => {
         this.loadData();
         alert('Publish success!');
@@ -60,7 +61,7 @@ class UserPage extends React.PureComponent {
   }
   handleDeletePost = () => {
     const postid = this.state.selected;
-    axios.post('http://localhost:3001/post/delete', { postid }).then(
+    axios.post(host+'post/delete', { postid }).then(
       res => {
         this.loadData();
         alert('Delete success!');

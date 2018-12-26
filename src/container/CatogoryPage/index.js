@@ -4,7 +4,8 @@ import MCard from '../../component/MCard';
 import { Helmet } from 'react-helmet';
 import Popular from '../../component/Popular';
 import axios from 'axios';
-
+import urlbackend from '../../evn.js';
+var host=urlbackend();
 class CatogoryPage extends React.Component {
   state = {
     post: '',
@@ -20,8 +21,8 @@ class CatogoryPage extends React.Component {
     } else if (id === '3') {
       this.setState({name: 'TECH'});
     } else this.setState({name: 'NOT FOUND'});
-    axios.get('http://localhost:3001/post/viewest').then(res => this.setState({ top4: res.data[0] }));
-    axios.post('http://localhost:3001/post/load_category', { id }).then(res => {
+    axios.get(host+'post/viewest').then(res => this.setState({ top4: res.data[0] }));
+    axios.post(host+'post/load_category', { id }).then(res => {
       const all = res.data[0];
       const post = all.map(post => {
         return <MCard data={post} position="right" />;
