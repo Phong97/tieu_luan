@@ -49,7 +49,7 @@ class NewPost extends React.Component {
     document.body.appendChild(script);
     const id = window.location.href.split('/')[5];
     if (id) {
-      axios.post(host+'post/load_post', { id }).then(res => {
+      axios.get(host+'post/load_post'/+id).then(res => {
         const data = res.data[0][0];
         if (data) {
           let img = data.img;

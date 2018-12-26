@@ -1,4 +1,4 @@
-const host='https://288edc2b.ngrok.io/';
+const host='http://localhost:3001/';
 const cacheName = 'v1';
 var db;
 const urlCache = [
