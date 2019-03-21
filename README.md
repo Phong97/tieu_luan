@@ -1,4 +1,5 @@
-Backend: https://github.com/MrSimple263/TL_Server
+<p style="font-size: 16px">Backend: https://github.com/MrSimple263/TL_Server</p>
+<p style="font-size: 16px">Project Descriptions: Bao_Cao.docx</p>
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
